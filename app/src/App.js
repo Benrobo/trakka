@@ -6,6 +6,7 @@ import "./App.css"
 import Login from "./pages/login";
 import Dashboard from "./pages/dashboard";
 import ExamCounter from "./pages/examCounter";
+import Statistics from "./pages/stats";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/login" element={<Login />} />
             <Route path="/examCounter" element={<ExamCounter />} />
+            <Route path="/stats" element={<Statistics />} />
           </Routes>
         </Router>
       </DataContextProvider>

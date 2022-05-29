@@ -52,4 +52,15 @@ Start your backend api services with minimal efforts using `Nodejs` `Expressjs` 
 
 ## Congratulation, you can now start exploring and adding other features 🚀.
 
+
 ### This repo is open for contribution.
+
+# Spinning up a local cockroach cluster.
+
+```bash
+
+ cockroach start-single-node --insecure `
+>> --listen-addr=localhost:26257 `
+>> --http-addr=localhost:5000
+
+```
