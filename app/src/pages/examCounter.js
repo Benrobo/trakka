@@ -220,7 +220,7 @@ function Counter({ datetime }) {
         <>
             {
                 expired ?
-                    <p className="text-red-400 font-extrabold text-[25px]  " ref={expiredTimer}></p>
+                    <p className="text-red-400 text-center w-full font-extrabold text-[25px]  " ref={expiredTimer}></p>
                     :
                     <>
                         <div className="w-full flex flex-row items-center justify-center">
