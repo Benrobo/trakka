@@ -26,13 +26,43 @@ function Login() {
         <div className="relative  flex flex-row items-center justify-center w-screen h-screen">
             <DomHead />
             <div className="w-[450px] h-auto mx-auto  flex flex-col items-center justify-center p-2 ">
-                <h1 className="text-green-200 font-extrabold text-[35px] ">Trakka</h1>
+                <h1 className="text-green-200 font-extrabold text-[55px] ">Trakka</h1>
                 <p className="text-white-200 font-extrabold text-[15px] ">
                     Increase your productivity
                 </p>
                 <br />
                 <div className="w-[350px] h-auto rounded-md p-4 flex flex-col items-center justify-center ">
                     <button className="px-6 py-4 bg-green-200 text-dark-200 font-extrabold text-[20px] rounded-[30px] mt-3 w-[250px] transition-all scale-[.90] hover:scale-[.95] " onClick={toggleForm}>Sign In</button>
+                </div>
+                <br />
+                <br />
+                <br />
+                <p className="text-white-300 font-extrabold text-[15px] ">
+                    Built with the following technologies.
+                </p>
+                <br />
+                <div className="w-full h-auto flex items-center justify-center gap-5 ">
+
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" className=' transition-all scale-[.95] hover:scale-[1.3] ' style={{
+                        width: "80px"
+                    }} />
+
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original-wordmark.svg" className=' transition-all scale-[.95] hover:scale-[1.3] ' style={{
+                        width: "100px"
+                    }} />
+
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" className=' transition-all scale-[.95] hover:scale-[1.3] ' style={{
+                        width: "80px"
+                    }} />
+
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original-wordmark.svg" className=' transition-all scale-[.95] hover:scale-[1.3] ' style={{
+                        width: "100px"
+                    }} />
+
+                    <img src="https://avatars.githubusercontent.com/u/6748139?s=280&v=4" className=' transition-all scale-[.95] hover:scale-[1.3] ' style={{
+                        width: "100px"
+                    }} />
+
                 </div>
             </div>
             {active && <AuthForm toggleForm={toggleForm} />}
@@ -63,6 +93,7 @@ function AuthForm({ toggleForm }) {
                     <br />
                 </div>
                 {activeName === "login" ? <LoginForm toggleForm={toggleForm} setActiveName={setActiveName} /> : <SignupForm toggleForm={toggleForm} setActiveName={setActiveName} />}
+
             </div>
         </div>
     )
@@ -232,6 +263,8 @@ function SignupForm({ toggleForm, setActiveName }) {
                     {loading ? "Creating Account.." : "Signup"}
                 </button>
             </div>
+            <br />
+            <br />
         </div>
     )
 }
