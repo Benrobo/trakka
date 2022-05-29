@@ -156,8 +156,6 @@ function ExamCounter() {
 
         let dataset = e.target.dataset;
 
-        console.log(dataset)
-
         if (Object.entries(dataset)) {
 
             let { id } = dataset;
