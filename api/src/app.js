@@ -7,6 +7,7 @@ import Auth0Config from "./config/auth0"
 import { loginUser, registerUser } from "./routes/auth"
 import { createCollection, getCollections } from "./routes/collections"
 import { addTasks, completeTask, getTasks } from "./routes/tasks"
+import { addExamTime, deleteExamTime, getExamsTime } from "./routes/examTimer"
 
 const app = express()
 
@@ -33,6 +34,11 @@ app.use("/api/v2/collection", getCollections)
 app.use("/api/v2/tasks", addTasks)
 app.use("/api/v2/tasks", getTasks)
 app.use("/api/v2/tasks", completeTask)
+// exams timer
+app.use("/api/v2/exams/timer/", addExamTime)
+app.use("/api/v2/exams/timer/", getExamsTime)
+app.use("/api/v2/exams/timer/", deleteExamTime)
+
 
 
 const PORT = process.env.PORT || 8080

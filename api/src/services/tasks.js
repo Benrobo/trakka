@@ -1,6 +1,9 @@
 import sendResponse from "../helpers/response";
-import prismaDB from "../config/prisma";
 import { genId } from "../helpers/util";
+import { PrismaClient } from "@prisma/client"
+
+
+const prismaDB = new PrismaClient()
 
 export default class Tasks {
 

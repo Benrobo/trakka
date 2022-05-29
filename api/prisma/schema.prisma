@@ -34,3 +34,15 @@ model Tasks {
 
   // @@id([id, collectionId])
 }
+
+// Exams Timer
+model Examstimer {
+  id              String   @id
+  userId          String
+  coursename      String 
+  description     String 
+  time            String 
+  paperType       String
+  color           String?
+  createdAt       DateTime @default(now())
+}

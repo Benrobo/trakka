@@ -1,7 +1,10 @@
 import sendResponse from "../helpers/response";
 import { compareHash, generateHash, genId } from "../helpers/util";
-import prismaDB from "../config/prisma";
 import { genAccessToken, genRefreshToken } from "../helpers/token";
+import { PrismaClient } from "@prisma/client"
+
+
+const prismaDB = new PrismaClient()
 
 export default class Auth {
 
