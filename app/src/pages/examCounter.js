@@ -4,13 +4,54 @@ import { Layout, DomHead } from "../components";
 import SideBar from '../components/Navbar/SideBar';
 import DataContext from '../context/DataContext';
 
+
+function generateRandomColor() {
+    let color = ""
+    for (let i = 0; i < 266; i++) {
+        let r = Math.floor(Math.random() * 255)
+        let g = Math.floor(Math.random() * 255);
+        let b = Math.floor(Math.random() * 255);
+        color = `rgb(${r}, ${g}, ${b})`
+    }
+    return color;
+}
+
 function ExamCounter() {
 
     const { isAuthenticated } = useContext(DataContext)
+    const [formactive, setFormActive] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [inputs, setInputs] = useState({
+        coursename: "",
+        description: "",
+        time: "",
+        color: ""
+    })
 
 
     if (!isAuthenticated) {
         return window.location = "/login"
+    }
+
+    function toggleForm() {
+        setFormActive(!formactive)
+    }
+
+    function handleInput(e) {
+        let name = e.target.name;
+        let val = e.target.value;
+        setInputs((prev) => ({ ...prev, [name]: val }))
+    }
+
+    function handleColor(e) {
+        let val = e.target.value;
+        let name = e.target.name;
+        setInputs((prev) => ({ ...prev, [name]: val }))
+    }
+
+    async function setExamCounter() {
+
+        console.log(inputs);
     }
 
     return (
@@ -22,7 +63,7 @@ function ExamCounter() {
 
                     <div id="head" className="w-full h-auto p-3  flex flex-row items-center justify-start ">
                         <p className="text-white-100 font-extrabold">Examination Counter.</p>
-                        <button className="rounded-md ml-5 px-4 py-2 bg-green-200 text-dark-100 font-extrabold scale-[.90] hover:scale-[.95] transition-all " onClick={"toggleActive"}>
+                        <button className="rounded-md ml-5 px-4 py-2 bg-green-200 text-dark-100 font-extrabold scale-[.90] hover:scale-[.95] transition-all " onClick={toggleForm}>
                             Create Counter
                         </button>
                     </div>
@@ -32,7 +73,7 @@ function ExamCounter() {
 
 
                     {/* counter form */}
-                    <CounterForm />
+                    {formactive && <CounterForm handleInput={handleInput} setExamCounter={setExamCounter} loading={loading} toggleForm={toggleForm} handleColor={handleColor} />}
                 </div>
             </div>
         </Layout>
@@ -86,7 +127,7 @@ function TimerCont() {
 }
 
 
-function CounterForm() {
+function CounterForm({ toggleForm, loading, handleInput, handleColor, setExamCounter }) {
 
     return (
         <div className="w-screen h-screen absolute top-0 left-0 flex flex-col items-center justify-center bg-dark-400 ">
@@ -99,32 +140,31 @@ function CounterForm() {
                     <span className='mr-4'>color</span> <input type="color" name="" id="" />
                 </div> */}
                 <br />
-                <input type="text" name="title" placeholder='Course Name' className="w-full h-auto p-2 rounded-md bg-dark-100" onChange={"handleTasksAInput"} maxLength={300} />
+                <input type="text" name="title" placeholder='Course Name' className="w-full h-auto p-2 rounded-md bg-dark-100" onChange={handleInput} maxLength={300} />
                 <br />
-                <input type="text" name="paperType" placeholder='Paper 1' className="w-full h-auto p-2 rounded-md bg-dark-100 mt-2" onChange={"handleTasksAInput"} maxLength={300} />
+                <input type="text" name="coursename" placeholder='Paper 1' className="w-full h-auto p-2 rounded-md bg-dark-100 mt-2" onChange={handleInput} maxLength={300} />
                 <br />
-                <input type="text" name="description" placeholder='Short Description' className="w-full h-auto p-2 rounded-md bg-dark-100 mt-2" onChange={"handleTasksAInput"} maxLength={100} />
+                <input type="text" name="description" placeholder='Short Description' className="w-full h-auto p-2 rounded-md bg-dark-100 mt-2" onChange={handleInput} maxLength={100} />
                 <br />
                 <br />
                 <div className="w-full flex flex-row items-center justify-between gap-2">
                     <div className="flex flex-col items-start justify-start">
                         <p className='text-white-300'>Schedule Counter</p>
-                        <input type="datetime-local" className="w-full p-2 bg-dark-100 mt-2" />
+                        <input type="datetime-local" name="time" onChange={handleInput} className="w-full p-2 bg-dark-100 mt-2" />
                     </div>
                     <div className="flex flex-col items-start justify-start">
                         <p className='text-white-300'>Color</p>
-                        <input type="color" className="w-full p-1 bg-dark-100 mt-2" />
+                        <input type="color" name="color" onChange={handleColor} className="w-full p-1 bg-dark-100 mt-2" />
                     </div>
                 </div>
                 <br />
                 <div className="w-full flex flex-row items-end align-start justify-end
                 ">
-                    <button className="rounded-md ml-5 px-4 py-2 bg-dark-100 text-white-100 font-extrabold scale-[.90] hover:scale-[.95] transition-all" onClick={"toggleTasksForm"}>
+                    <button className="rounded-md ml-5 px-4 py-2 bg-dark-100 text-white-100 font-extrabold scale-[.90] hover:scale-[.95] transition-all" onClick={toggleForm}>
                         Cancel
                     </button>
-                    <button className="rounded-md ml-5 px-4 py-2 bg-green-200 text-dark-100 font-extrabold scale-[.90] hover:scale-[.95] transition-all " onClick={"addTasks"}>
-                        {/* {loading ? "Saving Tasks.." : "Save Task"} */}
-                        Save Counter
+                    <button className="rounded-md ml-5 px-4 py-2 bg-green-200 text-dark-100 font-extrabold scale-[.90] hover:scale-[.95] transition-all " onClick={setExamCounter}>
+                        {loading ? "Saving.." : "Save Counter"}
                     </button>
                 </div>
             </div>
@@ -159,17 +199,19 @@ function Counter({ datetime }) {
             let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Display the result in the element with id="demo"
-            dayTimer.current.innerHTML = `${days}`
-            hourTimer.current.innerHTML = `${hours}`
-            minTimer.current.innerHTML = `${minutes}`
-            secTimer.current.innerHTML = `${seconds}`
+            if (dayTimer.current !== null && hourTimer.current !== null && minTimer.current !== null && secTimer.current !== null && expiredTimer.current !== null) {
+                // Display the result in the element with id="demo"
+                dayTimer.current.innerHTML = `${days}`
+                hourTimer.current.innerHTML = `${hours}`
+                minTimer.current.innerHTML = `${minutes}`
+                secTimer.current.innerHTML = `${seconds}`
 
-            // If the count down is finished, write some text
-            if (distance < 0) {
-                clearInterval(x);
-                setExpired(true)
-                expiredTimer.current.innerHTML = "EXPIRED";
+                // If the count down is finished, write some text
+                if (distance < 0) {
+                    clearInterval(x);
+                    setExpired(true)
+                    expiredTimer.current.innerHTML = "EXPIRED";
+                }
             }
         }, 1000);
     }, [])
