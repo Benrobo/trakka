@@ -245,7 +245,7 @@ function TimerCont({ deleteTimer, error, loading, examsTime }) {
                             :
                             examsTime.map((data, i) => {
                                 return (
-                                    <div key={data.id} data-id={data.id} className="w-[300px] mr-4 mt-4 relative h-[350px] overflow-hidden rounded-[15px] flex flex-col items-start justify-start bg-dark-200 shadow-xl cursor-pointer transition-all scale-[.95] ">
+                                    <div key={data.id} data-id={data.id} className="w-[300px] mr-4 mt-4 relative h-[350px] overflow-hidden rounded-[15px] flex flex-col items-start justify-start bg-dark-200 shadow-xl transition-all scale-[.95] ">
                                         <div id="" className="w-full h-[50px] relative top-0 left-0 flex flex-row items-start justify-between p-3 bg-dark-300 text-center text-white-200">
                                             {data.description}
                                             <button className="px-3 py-1 bg-red-500 text-[12px] text-dark-100 font-extrabold rounded-md scale-[.85] " data-id={data.id} onClick={deleteTimer}>

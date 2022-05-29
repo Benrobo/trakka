@@ -3,6 +3,7 @@ import { Layout, DomHead, NavBar } from "../components";
 import SideBar from '../components/Navbar/SideBar';
 import DataContext from '../context/DataContext';
 import { Notification } from '../helpers';
+import moment from "moment"
 // import { useAuth0 } from '@auth0/auth0-react';
 
 const notif = new Notification(4000)
@@ -223,7 +224,7 @@ function Collections({ setCollectionId, setCollState, collectionState, openCollT
                                             <p className="text-white-100 text-[20px] font-extrabold">{list.title}</p>
                                             <br />
                                             <span className="text-white-200 text-[12px] font-bold ">
-                                                {list.createdAt}
+                                                {moment(list.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
                                             </span>
                                         </div>
                                     </div>
